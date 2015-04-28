@@ -149,6 +149,22 @@ class Google_Service_PlusPages extends Google_Service
 
               ),
             ),
+            'update' => array(
+              'path' => 'activities/{activityId}',
+              'httpMethod' => 'PUT',
+              'parameters' => array(
+                'activityId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'onBehalfOf' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                  'required' => true
+                ),
+              ),
+            ),
           )
         )
     );
@@ -449,13 +465,21 @@ class Google_Service_PlusPages_Activities_Resource extends Google_Service_Resour
     $params = array_merge($params, $optParams);
     return $this->call('insert', array($params), "Google_Service_Plus_Activity");
   }
-  /*
-  public function insert($userId, $collection, Google_Service_Plus_Moment $postBody, $optParams = array())
+
+  /**
+   * Insert an activity. (activities.get)
+   *
+   * @param string $activityId The ID of the activity to get.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Plus_Activity
+   */
+  public function update($activityId, Google_Service_Plus_Activity $postBody, $optParams = array())
   {
-    $params = array('userId' => $userId, 'collection' => $collection, 'postBody' => $postBody);
+    $params = array('activityId' => $activityId, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('insert', array($params), "Google_Service_Plus_Moment");
-  }*/
+    return $this->call('update', array($params), "Google_Service_Plus_Activity");
+  }
+
 }
 
 /**
