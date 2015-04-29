@@ -168,7 +168,7 @@ class Google_Service_PlusPages extends Google_Service
           )
         )
     );
-    $this->comments = new Google_Service_Plus_Comments_Resource(
+    $this->comments = new Google_Service_PlusPages_Comments_Resource(
         $this,
         $this->serviceName,
         'comments',
@@ -204,6 +204,28 @@ class Google_Service_PlusPages extends Google_Service
                 'maxResults' => array(
                   'location' => 'query',
                   'type' => 'integer',
+                ),
+              ),
+            ),
+            'insert' => array(
+              'path' => 'activities/{activityId}/comments',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'activityId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),
+            'remove' => array(
+              'path' => 'comments/{commentId}',
+              'httpMethod' => 'DELETE',
+              'parameters' => array(
+                'commentId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
                 ),
               ),
             ),
@@ -490,7 +512,7 @@ class Google_Service_PlusPages_Activities_Resource extends Google_Service_Resour
  *   $comments = $plusService->comments;
  *  </code>
  */
-class Google_Service_Plus_Comments_Resource extends Google_Service_Resource
+class Google_Service_PlusPages_Comments_Resource extends Google_Service_Resource
 {
 
   /**
@@ -528,6 +550,36 @@ class Google_Service_Plus_Comments_Resource extends Google_Service_Resource
     $params = array_merge($params, $optParams);
     return $this->call('list', array($params), "Google_Service_Plus_CommentFeed");
   }
+
+  /**
+   * Create a new comment in reply to an activity. (comments.insert)
+   *
+   * @param string $activityId The ID of the activity to reply to.
+   * @param Google_Service_Plus_Comment $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_PlusDomains_Comment
+   */
+  public function insert($activityId, Google_Service_Plus_Comment $postBody, $optParams = array())
+  {
+    $params = array('activityId' => $activityId, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('insert', array($params), "Google_Service_Plus_Comment");
+  }
+
+  /**
+   * Delete a comment. (comment.remove)
+   *
+   * @param string $commentId The ID of the moment to delete.
+   * @param array $optParams Optional parameters.
+   *
+   * @return array
+   */
+  public function remove($commentId, $optParams = array())
+  {
+    $params = array('commentId' => $commentId);
+    $params = array_merge($params, $optParams);
+    return $this->call('remove', array($params));
+  }
 }
 
 /**
@@ -548,7 +600,7 @@ class Google_Service_Plus_Moments_Resource extends Google_Service_Resource
    * @param string $userId The ID of the user to record actions for. The only
    * valid values are "me" and the ID of the authenticated user.
    * @param string $collection The collection to which to write moments.
-   * @param Google_Moment $postBody
+   * @param Google_Service_Plus_Moment $postBody
    * @param array $optParams Optional parameters.
    *
    * @opt_param bool debug Return the moment as written. Should be used only for
