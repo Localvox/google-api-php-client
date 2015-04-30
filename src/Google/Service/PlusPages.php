@@ -216,6 +216,11 @@ class Google_Service_PlusPages extends Google_Service
                   'type' => 'string',
                   'required' => true,
                 ),
+                'onBehalfOf' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                  'required' => true
+                ),
               ),
             ),
             'remove' => array(
@@ -226,6 +231,11 @@ class Google_Service_PlusPages extends Google_Service
                   'location' => 'path',
                   'type' => 'string',
                   'required' => true,
+                ),
+                'onBehalfOf' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                  'required' => true
                 ),
               ),
             ),
