@@ -165,6 +165,22 @@ class Google_Service_PlusPages extends Google_Service
                 ),
               ),
             ),
+            'remove' => array(
+              'path' => 'activities/{activityId}',
+              'httpMethod' => 'DELETE',
+              'parameters' => array(
+                'activityId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'onBehalfOf' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                  'required' => true
+                ),
+              ),
+            ),
           )
         )
     );
@@ -511,7 +527,20 @@ class Google_Service_PlusPages_Activities_Resource extends Google_Service_Resour
     $params = array_merge($params, $optParams);
     return $this->call('update', array($params), "Google_Service_Plus_Activity");
   }
-
+    /**
+     * Delete an activity. (activities.remove)
+     *
+     * @param string $activityId The ID of the activity to delete.
+     * @param array $optParams Optional parameters.
+     *
+     * @return array
+     */
+    public function remove($activityId, $optParams = array())
+    {
+        $params = array('activityId' => $activityId);
+        $params = array_merge($params, $optParams);
+        return $this->call('remove', array($params));
+    }
 }
 
 /**
