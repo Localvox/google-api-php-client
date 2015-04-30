@@ -47,7 +47,8 @@ class Google_Service_PlusPages extends Google_Service
   public $comments;
   public $moments;
   public $people;
-  
+  public $media;
+
 
   /**
    * Constructs the internal representation of the Plus service.
@@ -258,6 +259,49 @@ class Google_Service_PlusPages extends Google_Service
           )
         )
     );
+
+    $this->media = new Google_Service_PlusPages_Media_Resource(
+        $this,
+        $this->serviceName,
+        'comments',
+        array(
+          'methods' => array(
+            'get' => array(
+              'path' => 'media/{mediaId}',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'commentId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),
+            'insert' => array(
+              'path' => 'people/{userId}/media/{collection}',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'userId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'collection' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'uploadType' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                  'required' => true
+                ),
+              ),
+            )
+          )
+        )
+    );
+
     $this->moments = new Google_Service_Plus_Moments_Resource(
         $this,
         $this->serviceName,
@@ -3655,4 +3699,293 @@ class Google_Service_Plus_PlusAclentryResource extends Google_Model
   {
     return $this->type;
   }
+}
+
+/**
+ * The "media" collection of methods.
+ * Typical usage is:
+ *  <code>
+ *   $plusPagesService = new Google_PlusPagesService(...);
+ *   $media = $plusPagesService->media;
+ *  </code>
+ */
+class Google_Service_PlusPages_Media_Resource extends Google_Service_Resource {
+
+
+    /**
+     * Get a media item. (media.get)
+     *
+     * @param string $mediaId The ID of the media to get.
+     * @param string $onBehalfOf The Google+ Page which the user wants to act on behalf of. If set, the action is executed on behalf of the Google+ Page indicated, with authorization checks.
+     * @param array $optParams Optional parameters.
+     *
+     * @opt_param bool cropImage Crop the image. mediaUrl will contain a square cropped image with the dimensions of imageSize.
+     * @opt_param bool download When true mediaUrl contains a downloadable link to the media.
+     * @opt_param int imageSize The longer of width or height (in pixels) of the image in mediaUrl. The aspect ratio of the image is preserved. If cropImage is true imageSize is the dimensions of the cropped image. The default is 512.
+     * @return Google_Media
+     */
+    public function get($mediaId, $onBehalfOf, $optParams = array()) {
+        $params = array('mediaId' => $mediaId, 'onBehalfOf' => $onBehalfOf);
+        $params = array_merge($params, $optParams);
+        return $this->call('get', array($params), "Google_Service_PlusPages_Media");
+    }
+    /**
+     * Add a new media item to an album. The current upload size limitations are 36MB for a photo and
+     * 1GB for a video. Uploads will not count against quota if photos are less than 2048 pixels on
+     * their longest side or videos are less than 15 minutes in length. (media.insert)
+     *
+     * @param string $userId The ID of the user to create the activity on behalf of.
+     * @param string $collection
+     * @param Google_Service_PlusPages_Media $postBody
+     * @param array $optParams Optional parameters.
+     * @return Google_Media
+     */
+    public function insert($userId, $collection, Google_Service_PlusPages_Media $postBody, $optParams = array()) {
+        $params = array('userId' => $userId, 'collection' => $collection, 'postBody' => $postBody);
+        $params = array_merge($params, $optParams);
+        return $this->call('insert', array($params), "Google_Service_PlusPages_Media");
+    }
+}
+
+
+class Google_Service_PlusPages_Media extends Google_Model {
+    public $albumId;
+    protected $authorType = 'Google_Service_PlusPages_MediaAuthor';
+    protected $authorDataType = '';
+    public $author;
+    public $displayName;
+    public $etag;
+    protected $exifType = 'Google_Service_PlusPages_MediaExif';
+    protected $exifDataType = '';
+    public $exif;
+    public $height;
+    public $id;
+    public $kind;
+    public $mediaUrl;
+    protected $mediasetsType = 'Google_Service_PlusPages_MediaMediasets';
+    protected $mediasetsDataType = 'array';
+    public $mediasets;
+    public $published;
+    public $sizeBytes;
+    protected $statusForViewerType = 'Google_Service_PlusPages_MediaStatusForViewer';
+    protected $statusForViewerDataType = '';
+    public $statusForViewer;
+    protected $streamsType = 'Google_Service_PlusPages_Videostream';
+    protected $streamsDataType = 'array';
+    public $streams;
+    public $summary;
+    public $updated;
+    public $url;
+    public $videoDuration;
+    public $videoStatus;
+    public $width;
+    public function setAlbumId($albumId) {
+        $this->albumId = $albumId;
+    }
+    public function getAlbumId() {
+        return $this->albumId;
+    }
+    public function setAuthor(Google_MediaAuthor $author) {
+        $this->author = $author;
+    }
+    public function getAuthor() {
+        return $this->author;
+    }
+    public function setDisplayName($displayName) {
+        $this->displayName = $displayName;
+    }
+    public function getDisplayName() {
+        return $this->displayName;
+    }
+    public function setEtag($etag) {
+        $this->etag = $etag;
+    }
+    public function getEtag() {
+        return $this->etag;
+    }
+    public function setExif(Google_MediaExif $exif) {
+        $this->exif = $exif;
+    }
+    public function getExif() {
+        return $this->exif;
+    }
+    public function setHeight($height) {
+        $this->height = $height;
+    }
+    public function getHeight() {
+        return $this->height;
+    }
+    public function setId($id) {
+        $this->id = $id;
+    }
+    public function getId() {
+        return $this->id;
+    }
+    public function setKind($kind) {
+        $this->kind = $kind;
+    }
+    public function getKind() {
+        return $this->kind;
+    }
+    public function setMediaUrl($mediaUrl) {
+        $this->mediaUrl = $mediaUrl;
+    }
+    public function getMediaUrl() {
+        return $this->mediaUrl;
+    }
+    public function setMediasets(/* array(Google_Service_PlusPages_MediaMediasets) */ $mediasets) {
+        $this->assertIsArray($mediasets, 'Google_Service_PlusPages_MediaMediasets', __METHOD__);
+        $this->mediasets = $mediasets;
+    }
+    public function getMediasets() {
+        return $this->mediasets;
+    }
+    public function setPublished($published) {
+        $this->published = $published;
+    }
+    public function getPublished() {
+        return $this->published;
+    }
+    public function setSizeBytes($sizeBytes) {
+        $this->sizeBytes = $sizeBytes;
+    }
+    public function getSizeBytes() {
+        return $this->sizeBytes;
+    }
+    public function setStatusForViewer(Google_Service_PlusPages_MediaStatusForViewer $statusForViewer) {
+        $this->statusForViewer = $statusForViewer;
+    }
+    public function getStatusForViewer() {
+        return $this->statusForViewer;
+    }
+    public function setStreams(/* array(Google_Service_PlusPages_Videostream) */ $streams) {
+        $this->assertIsArray($streams, 'Google_Service_PlusPages_Videostream', __METHOD__);
+        $this->streams = $streams;
+    }
+    public function getStreams() {
+        return $this->streams;
+    }
+    public function setSummary($summary) {
+        $this->summary = $summary;
+    }
+    public function getSummary() {
+        return $this->summary;
+    }
+    public function setUpdated($updated) {
+        $this->updated = $updated;
+    }
+    public function getUpdated() {
+        return $this->updated;
+    }
+    public function setUrl($url) {
+        $this->url = $url;
+    }
+    public function getUrl() {
+        return $this->url;
+    }
+    public function setVideoDuration($videoDuration) {
+        $this->videoDuration = $videoDuration;
+    }
+    public function getVideoDuration() {
+        return $this->videoDuration;
+    }
+    public function setVideoStatus($videoStatus) {
+        $this->videoStatus = $videoStatus;
+    }
+    public function getVideoStatus() {
+        return $this->videoStatus;
+    }
+    public function setWidth($width) {
+        $this->width = $width;
+    }
+    public function getWidth() {
+        return $this->width;
+    }
+}
+
+class Google_Service_PlusPages_MediaAuthor extends Google_Model {
+    public $displayName;
+    public $id;
+    protected $imageType = 'Google_Service_PlusPages_MediaAuthorImage';
+    protected $imageDataType = '';
+    public $image;
+    public $url;
+    public function setDisplayName($displayName) {
+        $this->displayName = $displayName;
+    }
+    public function getDisplayName() {
+        return $this->displayName;
+    }
+    public function setId($id) {
+        $this->id = $id;
+    }
+    public function getId() {
+        return $this->id;
+    }
+    public function setImage(Google_Service_PlusPages_MediaAuthorImage $image) {
+        $this->image = $image;
+    }
+    public function getImage() {
+        return $this->image;
+    }
+    public function setUrl($url) {
+        $this->url = $url;
+    }
+    public function getUrl() {
+        return $this->url;
+    }
+}
+
+class Google_Service_PlusPages_MediaAuthorImage extends Google_Model {
+    public $url;
+    public function setUrl($url) {
+        $this->url = $url;
+    }
+    public function getUrl() {
+        return $this->url;
+    }
+}
+
+class Google_Service_PlusPages_MediaExif extends Google_Model {
+    public $time;
+    public function setTime($time) {
+        $this->time = $time;
+    }
+    public function getTime() {
+        return $this->time;
+    }
+}
+
+class Google_Service_PlusPages_MediaMediasets extends Google_Model {
+    public $id;
+    public function setId($id) {
+        $this->id = $id;
+    }
+    public function getId() {
+        return $this->id;
+    }
+}
+
+class Google_Service_PlusPages_MediaStatusForViewer extends Google_Model {
+    public $canComment;
+    public $canPlusone;
+    public $resharingDisabled;
+    public function setCanComment($canComment) {
+        $this->canComment = $canComment;
+    }
+    public function getCanComment() {
+        return $this->canComment;
+    }
+    public function setCanPlusone($canPlusone) {
+        $this->canPlusone = $canPlusone;
+    }
+    public function getCanPlusone() {
+        return $this->canPlusone;
+    }
+    public function setResharingDisabled($resharingDisabled) {
+        $this->resharingDisabled = $resharingDisabled;
+    }
+    public function getResharingDisabled() {
+        return $this->resharingDisabled;
+    }
 }
